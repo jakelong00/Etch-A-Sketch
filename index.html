@@ -1,0 +1,89 @@
+<html>
+    <head>
+
+        <style>
+            #container{
+                display: grid;
+                column-gap: 2px;
+                row-gap: 2px;
+                justify-content: center;
+                margin-top: 30px;
+
+            }
+
+            .griditem{
+                border:1px solid black;
+            }
+
+            input{
+                width: 50px;
+                margin:5px;
+            }
+
+        </style>
+        
+    </head>
+    <body style='background-color: gray;'>
+        <h1 style='text-align: center;'>Etch-A-Sketch</h1>
+        <div style="display: flex; justify-content: center;">
+        <p>Enter the grid size</p>
+        <input type="text" id="h"></input>
+        <p>X</p>
+        <input type="text" id='w'></input>
+        <button onclick='set_grid()'>Set!</button>
+    </div>
+        <div id='container'></div>
+    
+        <script>
+            let container = document.querySelector('#container');
+            let grid = [];
+            
+            document.querySelector('#h').value = ''
+                document.querySelector('#w').value = ''
+                
+            
+            let griditemonmouseover = function(oid){
+                //console.log('oid '+oid);   
+                       let gi = document.querySelector('#'+oid);
+                       gi.setAttribute('style','background:#'+Math.floor(Math.random()*16777215).toString(16)+';');
+                   } 
+            
+            let set_grid = function(){
+                let h = document.querySelector('#h').value;
+                let w = document.querySelector('#w').value;
+                document.querySelector('#h').value = ''
+                document.querySelector('#w').value = ''
+                console.log('h:'+h+' w:'+w);
+                
+                grid = [];
+                container.innerHTML ='';
+                container.setAttribute('style', 'grid-template-columns: repeat('+w+',20px);grid-template-rows: repeat('+h+',20px);');
+                //container.setAttribute('style', 'grid-template-rows: repeat('+h+',20px);');
+
+                for(let i=0; i<h;i++ ){
+                    let a = [];
+                        for (let j = 0; j<w; j++){ 
+                            let d = document.createElement('div');
+                            let cid = 'r'+i+'c'+j;
+                            d.setAttribute('id',cid);
+                            d.setAttribute('class','griditem');
+                            d.setAttribute('onmouseover', "griditemonmouseover('"+cid+"')");
+                            container.append(d);
+                        }
+                        //grid.push(a);
+                        //a=[];
+                    }
+                    
+                    
+                   // console.log(grid);
+                    // for(let i=0;i<h;i++){
+                    //     for(let j = 0; j<w;j++)
+                    //     container.append(grid[i][j]);
+                    // }
+
+        }
+
+        </script>
+    </body>
+
+</html>
